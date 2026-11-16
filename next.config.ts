@@ -1,0 +1,19 @@
+import type { NextConfig } from 'next';
+
+const config: NextConfig = {
+  devIndicators: false,
+  poweredByHeader: false,
+  agentRules: false,
+  async headers() {
+    return [
+      { source: '/:path*', headers: [
+        { key: 'Referrer-Policy', value: 'no-referrer' },
+        { key: 'X-Frame-Options', value: 'DENY' },
+        { key: 'X-Content-Type-Options', value: 'nosniff' },
+      ] },
+      { source: '/sw.js', headers: [{ key: 'Cache-Control', value: 'no-cache' }] },
+    ];
+  },
+};
+
+export default config;
